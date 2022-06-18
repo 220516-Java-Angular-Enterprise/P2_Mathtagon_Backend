@@ -1,5 +1,6 @@
 # MATHTAGON
 
+---
 ## Roles
 - Ryan Jacobo - Frontend Lead java junior developer
 - Rayshaun Thompson - Backend Lead java junior developer
@@ -13,6 +14,17 @@ answer in the text below, at which point they’ll be presented with a new probl
 start with a set number hit points; while incorrect answers will reduce their hit points, correct answers will increase,/br>
 the timer and longer streaks of correct answers will give a bigger bonus. The game ends when the timer hits zero.
 
+## Technologies
+| *Frontend*     | *Backend*     |
+|----------------|---------------|
+| Spring Angular | Java          |
+| Spring Boot    | AWS RDS & EC2 |
+| HTML           | Docker        |
+| Typescript     | Jenkins       |
+ |                | J-Unit        |
+ |                | Mockito       |
+ |                | Postman       |
+ |                | Nodes         |
 
 ## MVP
 - Users can create account with input validation
@@ -49,21 +61,3 @@ the timer and longer streaks of correct answers will give a bigger bonus. The ga
 - Number of Solutions by a user should be displayed on a users profile
 - Users take questionnaire of math problems to see what they good at
 - Users can wager points before battle starts but opponent must agree to wager
-
-
-## Technologies:
-- Spring Angular 		(front end)
-- Spring Boot  			(front end)
-- Java 				(backend)
-- HTML 				(frontend)
-- Typescript 			(frontend)
-- AWS (amazon web services)     (backend)
-- EC2s 				(backend)
-- Docker 			(backend)
-- Tomcat 			(backend)
-- Jenkins	        	(backend)
-- J-Unit 	        	(backend)
-- Mockito 			(backend)
-- Postman 			(backend)
-- Nodes 			(backend)
-
