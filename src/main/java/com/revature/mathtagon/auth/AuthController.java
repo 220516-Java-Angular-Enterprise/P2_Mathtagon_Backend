@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -28,28 +31,32 @@ public class AuthController {
         mTokenService = tServ;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Principal login(@RequestBody LoginRequest req, HttpServletResponse resp) {
+    public @ResponseBody Principal login(@RequestBody LoginRequest req, HttpServletResponse resp) throws LoginException {
+        logger.info("Logging in with credentials " + req.getUsername() + ", " + req.getPassword());
+
         Principal p;
+        if(req.getUsername().equals("admin") && req.getPassword().equals("revature"))
+            p =  new Principal(UUID.randomUUID().toString(), req.getUsername());
+        else throw new LoginException("Access denied fool");
 
-        try {
-            logger.info("Logging in with credentials " + req.getUsername() + ", " + req.getPassword());
-            if (req.getUsername().equals("admin") && req.getPassword().equals("revature")) {
-                logger.info("Authentication successful");
+        logger.info("Authentication successful");
+        resp.setHeader("Authorization", mTokenService.generateToken(p));
+        return p;
+    }
 
-                p = new Principal(UUID.randomUUID().toString(), req.getUsername());
-                resp.setHeader("Authorization", mTokenService.generateToken(p));
-                resp.setStatus(HttpServletResponse.SC_OK);
-                return p;
-            }
-            else {
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                logger.warning("\n==========\nException Thrown\n==========");
-                throw new LoginException("Access denied fool");
-            }
-        } catch(LoginException le) {
-            logger.severe(ExceptionUtils.getStackTrace(le));
-            return null;
-        }
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public @ResponseBody Map<String, Object> handleLoginException(LoginException le) {
+        logger.warning("\n==========\nException Thrown\n==========");
+        logger.severe(ExceptionUtils.getStackTrace(le));
+
+        Map<String, Object> responseBody = new LinkedHashMap<>();
+        responseBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+        responseBody.put("message", le.getMessage());
+        responseBody.put("timestamp", LocalDateTime.now().toString());
+
+        return responseBody;
     }
 }
