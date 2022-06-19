@@ -1,11 +1,33 @@
-package com.revature.mathtagon.models;
+package com.revature.mathtagon.scores;
+
+import com.revature.mathtagon.user.Users;
+
+
+import javax.persistence.*;
+
+@Entity
+
+@Table(name = "score")
+
 
 public class Scores {
-    private String userID;
+    @Id
+     private String userID;
+
+    @Column
     private Integer totalScore;
+    @Column
     private Integer bestScore;
+    @Column
     private Integer level;
 
+    @ManyToOne
+    @JoinColumn(name = "userID", nullable = false)
+    private Users user;
+
+    @ManyToOne
+    @JoinColumn(name = "user_ID")
+    private Scores score;
     public Scores(String userID, Integer totalScore, Integer bestScore, Integer level) {
         this.userID = userID;
         this.totalScore = totalScore;

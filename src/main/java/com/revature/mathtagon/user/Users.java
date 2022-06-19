@@ -1,13 +1,30 @@
-package com.revature.mathtagon.models;
+package com.revature.mathtagon.user;
+
+import com.revature.mathtagon.scores.Scores;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
 
 public class Users {
 
+    @Id
     private String userID;
+    @Column
     private String username;
+    @Column
     private String password;
+    @Column
     private String email;
+    @Column
     private String fullName;
+    @Column
     private Integer age;
+
+    @OneToMany(mappedBy = "users")
+    private List<Scores> scores;
 
 
     public Users(){}
