@@ -1,18 +1,18 @@
 package com.revature.mathtagon.mathbattle;
 
 import com.revature.mathtagon.user.User;
+import org.hibernate.annotations.MapKeyType;
 
 
 import javax.persistence.*;
 
 @Entity
-
 @Table(name = "score")
-
-
 public class Score {
-    @Id
-     private String userID;
+
+    @OneToOne
+    @JoinColumn(name = "userID")
+    private User user;
 
     @Column
     private Integer totalScore;
@@ -21,26 +21,26 @@ public class Score {
     @Column
     private Integer level;
 
-    @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
-    private User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_ID")
-    private Score score;
-    public Score(String userID, Integer totalScore, Integer bestScore, Integer level) {
-        this.userID = userID;
+
+
+    public Score(User user, Integer totalScore, Integer bestScore, Integer level) {
+        this.user = user;
         this.totalScore = totalScore;
         this.bestScore = bestScore;
         this.level = level;
+
     }
 
-    public String getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getTotalScore() {
@@ -70,7 +70,7 @@ public class Score {
     @Override
     public String toString() {
         return "Score{" +
-                "userID='" + userID + '\'' +
+                "user=" + user +
                 ", totalScore=" + totalScore +
                 ", bestScore=" + bestScore +
                 ", level=" + level +
