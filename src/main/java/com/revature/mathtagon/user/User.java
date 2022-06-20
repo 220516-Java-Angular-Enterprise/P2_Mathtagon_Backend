@@ -1,6 +1,6 @@
 package com.revature.mathtagon.user;
 
-import com.revature.mathtagon.mathbattle.Scores;
+import com.revature.mathtagon.mathbattle.Score;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,7 +24,7 @@ public class User {
     private Integer age;
 
     @OneToMany(mappedBy = "users")
-    private List<Scores> scores;
+    private List<Score> scores;
 
 
     public User(){}
