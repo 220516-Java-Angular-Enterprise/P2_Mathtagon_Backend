@@ -4,16 +4,20 @@ import com.revature.mathtagon.auth.dtos.requests.LoginRequest;
 import com.revature.mathtagon.user.dtos.requests.NewUserRequest;
 import com.revature.mathtagon.util.annotations.Inject;
 import com.revature.mathtagon.util.customexceptions.AuthenticationException;
+import com.revature.mathtagon.util.customexceptions.InvalidRequestException;
+import com.revature.mathtagon.util.customexceptions.ResourceConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
 public class UserService {
+    private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
     @Inject
     private final UserRepository userRepository;
@@ -38,11 +42,12 @@ public class UserService {
             if (isUserValid(user.getUsername())){
                 if(isPassValid(user.getPassword())){
                     user.setUserID(UUID.randomUUID().toString());
-                    userRepository.saveUser(user.getUserID(),user.getUsername(),user.getPassword(),user.getEmail(),user.getFullName(),user.getAge());
-                } else throw new AuthenticationException(" Invalid password. password must have at least 8 characters");
-            }else throw new AuthenticationException("Invalid username. username must have atleast 8 - 20 characters");
+                    userRepository.saveUser(user.getUserID(),user.getUsername(),user.getPassword(),user.getEmail(),user.getFullname(),user.getAge());
+                    logger.info(user.toString());
+                } else throw new InvalidRequestException(" Invalid password. password must have at least 8 characters");
+            }else throw new InvalidRequestException("Invalid username. username must have at least 8 - 20 characters");
 
-        }else throw new AuthenticationException("Username is already in use");
+        }else throw new ResourceConflictException("Username is already in use");
         return  user;
     }
 

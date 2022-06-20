@@ -3,7 +3,7 @@ package com.revature.mathtagon.user;
 import com.revature.mathtagon.mathbattle.Score;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -19,7 +19,7 @@ public class User {
     @Column
     private String email;
     @Column
-    private String fullName;
+    private String fullname;
     @Column
     private Integer age;
 
@@ -36,10 +36,20 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.fullName = fullName;
+        this.fullname = fullName;
         this.age = age;
 
     }
+    public User( String username, String password,String email, String fullname,Integer age){
+        //userID = UUID.randomUUID().toString();
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.fullname = fullname;
+        this.age = age;
+
+    }
+
 
     public User(String username, String password) {
         this.username = username;
@@ -79,12 +89,12 @@ public class User {
         this.email = email;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public Integer getAge() {
@@ -102,7 +112,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", fullName='" + fullName + '\'' +
+                ", fullname='" + fullname + '\'' +
                 ", age=" + age +
 
                 '}';
