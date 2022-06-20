@@ -19,7 +19,6 @@ public class TokenService {
 
     @Inject
     @Autowired
-
     public TokenService(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
     }
