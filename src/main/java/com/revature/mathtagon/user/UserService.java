@@ -15,16 +15,16 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository){this.userRepository = userRepository;}
 
-    public Users login(LoginRequest request){
-        Users user = null;
+    public User login(LoginRequest request){
+        User user = null;
         if(!isNotDuplicateUsername(request.getUsername()) || !isPassValid(request.getPassword())) throw new AuthenticationException("Username is taken or password is invalid");
         user = userRepository.getUserAndPassword(request.getUsername(), request.getPassword());
         if (user == null) throw new AuthenticationException("Invalid credentials");
         return user;
     }
 
-    public Users registerUser(NewUserRequest request){
-        Users user = request.takeUser();
+    public User registerUser(NewUserRequest request){
+        User user = request.takeUser();
 
         if(isNotDuplicateUsername(user.getUsername())){
             if (isUserValid(user.getUsername())){
@@ -38,8 +38,8 @@ public class UserService {
         return  user;
     }
 
-    public List<Users> getAllUsers(){
-        return(List<Users>) userRepository.findAll();
+    public List<User> getAllUsers(){
+        return(List<User>) userRepository.findAll();
     }
 
     private boolean isUserValid(String username){

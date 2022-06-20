@@ -1,6 +1,6 @@
 package com.revature.mathtagon.user;
 
-import com.revature.mathtagon.scores.Scores;
+import com.revature.mathtagon.mathbattle.Scores;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 
-public class Users {
+public class User {
 
     @Id
     private String userID;
@@ -27,11 +27,11 @@ public class Users {
     private List<Scores> scores;
 
 
-    public Users(){}
+    public User(){}
 
 
 
-    public Users(String userID, String username, String password, String email, String fullName, Integer age) {
+    public User(String userID, String username, String password, String email, String fullName, Integer age) {
         this.userID = userID;
         this.username = username;
         this.password = password;
@@ -41,7 +41,7 @@ public class Users {
 
     }
 
-    public Users(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -97,7 +97,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "userID='" + userID + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

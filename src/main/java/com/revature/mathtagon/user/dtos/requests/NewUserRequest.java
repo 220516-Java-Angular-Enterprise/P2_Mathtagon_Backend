@@ -1,6 +1,6 @@
 package com.revature.mathtagon.user.dtos.requests;
 
-import com.revature.mathtagon.user.Users;
+import com.revature.mathtagon.user.User;
 
 public class NewUserRequest {
     private String username;
@@ -28,8 +28,8 @@ public class NewUserRequest {
         this.password = password;
     }
 
-    public Users takeUser(){
-        return new Users(username, password);
+    public User takeUser(){
+        return new User(username, password);
     }
 
     @Override
