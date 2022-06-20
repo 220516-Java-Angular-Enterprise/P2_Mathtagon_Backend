@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "score")
 
 
-public class Scores {
+public class Score {
     @Id
      private String userID;
 
@@ -27,8 +27,8 @@ public class Scores {
 
     @ManyToOne
     @JoinColumn(name = "user_ID")
-    private Scores score;
-    public Scores(String userID, Integer totalScore, Integer bestScore, Integer level) {
+    private Score score;
+    public Score(String userID, Integer totalScore, Integer bestScore, Integer level) {
         this.userID = userID;
         this.totalScore = totalScore;
         this.bestScore = bestScore;
@@ -69,7 +69,7 @@ public class Scores {
 
     @Override
     public String toString() {
-        return "Scores{" +
+        return "Score{" +
                 "userID='" + userID + '\'' +
                 ", totalScore=" + totalScore +
                 ", bestScore=" + bestScore +
