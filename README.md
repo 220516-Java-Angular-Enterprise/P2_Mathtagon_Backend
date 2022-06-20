@@ -14,6 +14,8 @@ answer in the text below, at which point they’ll be presented with a new probl
 start with a set number hit points; while incorrect answers will reduce their hit points, correct answers will increase,/br>
 the timer and longer streaks of correct answers will give a bigger bonus. The game ends when the timer hits zero.
 
+
+![](../../Final ERD Diagram.png)
 ## Technologies
 | *Frontend*     | *Backend*     |
 |----------------|---------------|
