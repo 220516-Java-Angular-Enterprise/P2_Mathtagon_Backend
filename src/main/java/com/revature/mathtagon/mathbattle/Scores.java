@@ -1,6 +1,6 @@
-package com.revature.mathtagon.scores;
+package com.revature.mathtagon.mathbattle;
 
-import com.revature.mathtagon.user.Users;
+import com.revature.mathtagon.user.User;
 
 
 import javax.persistence.*;
@@ -23,7 +23,7 @@ public class Scores {
 
     @ManyToOne
     @JoinColumn(name = "userID", nullable = false)
-    private Users user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "user_ID")
