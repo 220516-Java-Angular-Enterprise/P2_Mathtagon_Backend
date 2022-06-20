@@ -15,7 +15,7 @@ start with a set number hit points; while incorrect answers will reduce their hi
 the timer and longer streaks of correct answers will give a bigger bonus. The game ends when the timer hits zero.
 
 
-![](../../Final ERD Diagram.png)
+![Final ERD Diagram](https://user-images.githubusercontent.com/105669957/174524523-217e5799-defc-449a-8940-fb4738decf43.png)
 ## Technologies
 | *Frontend*     | *Backend*     |
 |----------------|---------------|
