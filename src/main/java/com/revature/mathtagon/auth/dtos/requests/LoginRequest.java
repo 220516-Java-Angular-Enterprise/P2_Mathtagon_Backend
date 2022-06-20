@@ -6,6 +6,7 @@ public class LoginRequest {
 
     public LoginRequest(){}
 
+    //Login credentials
     public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;

@@ -1,7 +1,6 @@
 package com.revature.mathtagon.mathbattle;
 
 import com.revature.mathtagon.user.User;
-import org.hibernate.annotations.MapKeyType;
 
 
 import javax.persistence.*;
@@ -15,9 +14,9 @@ public class Score {
     private User user;
 
     @Column
-    private Integer totalScore;
+    private Integer totalscore;
     @Column
-    private Integer bestScore;
+    private Integer bestscore;
     @Column
     private Integer level;
 
@@ -29,8 +28,8 @@ public class Score {
 
     public Score(User user, Integer totalScore, Integer bestScore, Integer level) {
         this.user = user;
-        this.totalScore = totalScore;
-        this.bestScore = bestScore;
+        this.totalscore = totalScore;
+        this.bestscore = bestScore;
         this.level = level;
 
     }
@@ -43,20 +42,20 @@ public class Score {
         this.user = user;
     }
 
-    public Integer getTotalScore() {
-        return totalScore;
+    public Integer getTotalscore() {
+        return totalscore;
     }
 
-    public void setTotalScore(Integer totalScore) {
-        this.totalScore = totalScore;
+    public void setTotalscore(Integer totalscore) {
+        this.totalscore = totalscore;
     }
 
-    public Integer getBestScore() {
-        return bestScore;
+    public Integer getBestscore() {
+        return bestscore;
     }
 
-    public void setBestScore(Integer bestScore) {
-        this.bestScore = bestScore;
+    public void setBestscore(Integer bestscore) {
+        this.bestscore = bestscore;
     }
 
     public Integer getLevel() {
@@ -71,8 +70,8 @@ public class Score {
     public String toString() {
         return "Score{" +
                 "user=" + user +
-                ", totalScore=" + totalScore +
-                ", bestScore=" + bestScore +
+                ", totalScore=" + totalscore +
+                ", bestScore=" + bestscore +
                 ", level=" + level +
                 '}';
     }

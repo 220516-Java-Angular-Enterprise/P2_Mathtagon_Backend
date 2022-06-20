@@ -1,14 +1,23 @@
 package com.revature.mathtagon.auth.dtos.responses;
 
+import com.revature.mathtagon.user.User;
+
 public class Principal {
     private String id;
     private String username;
 
     public Principal() {}
 
+    //For token verification
     public Principal(String id, String username) {
         this.id = id;
         this.username = username;
+    }
+
+    //For token creation
+    public Principal(User login) {
+        id = login.getUserID();
+        username = login.getUsername();
     }
 
     public String getId() {
