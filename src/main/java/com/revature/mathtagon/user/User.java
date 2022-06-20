@@ -23,8 +23,8 @@ public class User {
     @Column
     private Integer age;
 
-    @OneToMany(mappedBy = "users")
-    private List<Score> scores;
+    @OneToOne(mappedBy = "user")
+    private Score scores;
 
 
     public User(){}

@@ -2,18 +2,26 @@ package com.revature.mathtagon.user;
 
 import com.revature.mathtagon.auth.dtos.requests.LoginRequest;
 import com.revature.mathtagon.user.dtos.requests.NewUserRequest;
+import com.revature.mathtagon.util.annotations.Inject;
 import com.revature.mathtagon.util.customexceptions.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
+@Service
+@Transactional
 public class UserService {
 
+    @Inject
     private final UserRepository userRepository;
 
+    @Inject
     @Autowired
     public UserService(UserRepository userRepository){this.userRepository = userRepository;}
+
 
     public User login(LoginRequest request){
         User user = null;
