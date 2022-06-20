@@ -17,7 +17,7 @@ public class UserService {
 
     public User login(LoginRequest request){
         User user = null;
-        if(!isNotDuplicateUsername(request.getUsername()) || !isPassValid(request.getPassword())) throw new AuthenticationException("Username is taken or password is invalid");
+        if(!isPassValid(request.getPassword())) throw new AuthenticationException("Username is taken or password is invalid");
         user = userRepository.getUserAndPassword(request.getUsername(), request.getPassword());
         if (user == null) throw new AuthenticationException("Invalid credentials");
         return user;
