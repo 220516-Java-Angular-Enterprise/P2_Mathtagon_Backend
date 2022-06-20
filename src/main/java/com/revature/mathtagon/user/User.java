@@ -40,15 +40,16 @@ public class User {
         this.age = age;
 
     }
-    public User( String username, String password,String email, String fullName,Integer age){
-        userID = UUID.randomUUID().toString();
+    public User( String username, String password,String email, String fullname,Integer age){
+        //userID = UUID.randomUUID().toString();
         this.username = username;
         this.password = password;
         this.email = email;
-        this.fullname = fullName;
+        this.fullname = fullname;
         this.age = age;
 
     }
+
 
     public User(String username, String password) {
         this.username = username;
@@ -111,7 +112,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", fullName='" + fullname + '\'' +
+                ", fullname='" + fullname + '\'' +
                 ", age=" + age +
 
                 '}';
