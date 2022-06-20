@@ -2,6 +2,7 @@ package com.revature.mathtagon.auth;
 
 import com.revature.mathtagon.auth.dtos.requests.LoginRequest;
 import com.revature.mathtagon.auth.dtos.responses.Principal;
+import com.revature.mathtagon.user.UserService;
 import com.revature.mathtagon.util.annotations.Inject;
 import com.revature.mathtagon.util.customexceptions.AuthenticationException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -24,22 +25,21 @@ public class AuthController {
     private static final Logger logger = Logger.getLogger(AuthController.class.getName());
     @Inject
     private final TokenService mTokenService;
+    private final UserService mUserService;
 
     @Inject
     @Autowired
-    public AuthController(TokenService tServ) {
+    public AuthController(TokenService tServ, UserService uServ) {
         mTokenService = tServ;
+        mUserService = uServ;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Principal login(@RequestBody LoginRequest req, HttpServletResponse resp) throws LoginException {
+    public @ResponseBody Principal login(@RequestBody LoginRequest req, HttpServletResponse resp) throws AuthenticationException {
         logger.info("Logging in with credentials " + req.getUsername() + ", " + req.getPassword());
 
-        Principal p;
-        if(req.getUsername().equals("admin") && req.getPassword().equals("revature"))
-            p =  new Principal(UUID.randomUUID().toString(), req.getUsername());
-        else throw new LoginException("Access denied fool");
+        Principal p =  new Principal(mUserService.login(req));
 
         logger.info("Authentication successful");
         resp.setHeader("Authorization", mTokenService.generateToken(p));
@@ -48,13 +48,13 @@ public class AuthController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public @ResponseBody Map<String, Object> handleLoginException(LoginException le) {
+    public @ResponseBody Map<String, Object> handleAuthenticationException(AuthenticationException ae) {
         logger.warning("\n==========\nException Thrown\n==========");
-        logger.severe(ExceptionUtils.getStackTrace(le));
+        logger.severe(ExceptionUtils.getStackTrace(ae));
 
         Map<String, Object> responseBody = new LinkedHashMap<>();
         responseBody.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-        responseBody.put("message", le.getMessage());
+        responseBody.put("message", ae.getMessage());
         responseBody.put("timestamp", LocalDateTime.now().toString());
 
         return responseBody;
