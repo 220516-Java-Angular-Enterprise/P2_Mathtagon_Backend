@@ -51,7 +51,7 @@ public class UserService {
     }
 
     private boolean isNotDuplicateUsername(String username){
-        return !userRepository.getAllUsers().contains(username);
+        return !userRepository.getAllUsernames().contains(username);
     }
 
 }
