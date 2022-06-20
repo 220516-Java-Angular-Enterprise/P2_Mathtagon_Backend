@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
 public class UserService {
+    private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
     @Inject
     private final UserRepository userRepository;
@@ -41,6 +43,7 @@ public class UserService {
                 if(isPassValid(user.getPassword())){
                     user.setUserID(UUID.randomUUID().toString());
                     userRepository.saveUser(user.getUserID(),user.getUsername(),user.getPassword(),user.getEmail(),user.getFullname(),user.getAge());
+                    logger.info(user.toString());
                 } else throw new InvalidRequestException(" Invalid password. password must have at least 8 characters");
             }else throw new InvalidRequestException("Invalid username. username must have at least 8 - 20 characters");
 
