@@ -7,16 +7,13 @@ import com.revature.mathtagon.util.annotations.Inject;
 import com.revature.mathtagon.util.customexceptions.AuthenticationException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController
@@ -36,14 +33,34 @@ public class AuthController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Principal login(@RequestBody LoginRequest req, HttpServletResponse resp) throws AuthenticationException {
+    public @ResponseBody ResponseEntity<Principal> login(@CookieValue(name = "Authorization", defaultValue = "") String authToken,
+                                                         @RequestBody LoginRequest req)
+            throws AuthenticationException
+    {
         logger.info("Logging in with credentials " + req.getUsername() + ", " + req.getPassword());
+        Principal p;
+        if (!authToken.isEmpty()) {
+            p = mTokenService.getRequesterDetails(authToken);
+            if(req.getUsername().equals(p.getUsername())) {
+                logger.info("Already logged in.");
+                return ResponseEntity.ok(p);
+            }
+            logger.info("User changed.");
+        }
+        else logger.info("Authentication cookie is empty.");
 
-        Principal p =  new Principal(mUserService.login(req));
+        p = new Principal(mUserService.login(req));
 
         logger.info("Authentication successful");
-        resp.setHeader("Authorization", mTokenService.generateToken(p));
-        return p;
+        String jToken = mTokenService.generateToken(p);
+        ResponseCookie resCookie = ResponseCookie.from("Authorization", jToken)
+                .httpOnly(true)
+                .path("/mathtagon")
+                .maxAge(60*10)
+                .domain("localhost")
+                .build();
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, resCookie.toString()).body(p);
     }
 
     @ExceptionHandler
