@@ -1,9 +1,6 @@
 package com.revature.mathtagon.user.dtos.requests;
 
-import com.revature.mathtagon.auth.AuthController;
 import com.revature.mathtagon.user.User;
-
-import org.apache.tomcat.util.json.JSONParser;
 
 import java.util.logging.Logger;
 
@@ -14,7 +11,7 @@ public class NewUserRequest {
 
     private String username;
     private String password;
-    private String fullName;
+    private String fullname;
     private String email;
     private int age;
 
@@ -24,17 +21,17 @@ public class NewUserRequest {
     public NewUserRequest(String username, String password, String fullName, String email, Integer age) {
         this.username = username;
         this.password = password;
-        this.fullName = fullName;
+        this.fullname = fullName;
         this.email = email;
         this.age = age;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getEmail() {
@@ -70,7 +67,7 @@ public class NewUserRequest {
     }
 
     public User takeUser(){
-        return new User(username,password,email,fullName,age);
+        return new User(username,password,email, fullname,age);
     }
 
 
@@ -79,7 +76,7 @@ public class NewUserRequest {
         return "NewUserRequest{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", fullName='" + fullName + '\'' +
+                ", fullName='" + fullname + '\'' +
                 ", email='" + email + '\'' +
                 ", age='" + age +
                 '}';
