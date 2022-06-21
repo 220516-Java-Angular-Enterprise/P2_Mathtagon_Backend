@@ -33,34 +33,14 @@ public class AuthController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<Principal> login(@CookieValue(name = "Authorization", defaultValue = "") String authToken,
-                                                         @RequestBody LoginRequest req)
-            throws AuthenticationException
-    {
+    public @ResponseBody ResponseEntity<Principal> login(@RequestBody LoginRequest req) throws AuthenticationException {
         logger.info("Logging in with credentials " + req.getUsername() + ", " + req.getPassword());
-        Principal p;
-        if (!authToken.isEmpty()) {
-            p = mTokenService.getRequesterDetails(authToken);
-            if(req.getUsername().equals(p.getUsername())) {
-                logger.info("Already logged in.");
-                return ResponseEntity.ok(p);
-            }
-            logger.info("User changed.");
-        }
-        else logger.info("Authentication cookie is empty.");
-
-        p = new Principal(mUserService.login(req));
+        Principal p = new Principal(mUserService.login(req));
 
         logger.info("Authentication successful");
         String jToken = mTokenService.generateToken(p);
-        ResponseCookie resCookie = ResponseCookie.from("Authorization", jToken)
-                .httpOnly(true)
-                .path("/mathtagon")
-                .maxAge(60*10)
-                .domain("localhost")
-                .build();
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, resCookie.toString()).body(p);
+        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jToken).body(p);
     }
 
     @ExceptionHandler
