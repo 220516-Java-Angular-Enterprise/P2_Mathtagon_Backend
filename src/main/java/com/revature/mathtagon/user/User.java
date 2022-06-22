@@ -1,9 +1,11 @@
 package com.revature.mathtagon.user;
 
-import com.revature.mathtagon.mathbattle.Score;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.revature.mathtagon.game.Game;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -23,21 +25,30 @@ public class User {
     @Column
     private Integer age;
 
-    @OneToOne(mappedBy = "user")
-    private Score scores;
 
 
-    public User(){}
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    @JsonManagedReference
+    private List<Game> games;
+
+    public User(){
+        games = new ArrayList<>();
+    }
 
 
 
-    public User(String userID, String username, String password, String email, String fullName, Integer age) {
+    public User(String userID, String username, String password, String email, String fullName, Integer age, List<Game> games) {
         this.userID = userID;
         this.username = username;
         this.password = password;
         this.email = email;
         this.fullname = fullName;
         this.age = age;
+        this.games = games;
 
     }
     public User( String username, String password,String email, String fullname,Integer age){
@@ -56,6 +67,13 @@ public class User {
         this.password = password;
     }
 
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
 
     public String getUserID() {
         return userID;
@@ -114,7 +132,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", fullname='" + fullname + '\'' +
                 ", age=" + age +
-
+                ", games=" + games +
                 '}';
     }
 }
