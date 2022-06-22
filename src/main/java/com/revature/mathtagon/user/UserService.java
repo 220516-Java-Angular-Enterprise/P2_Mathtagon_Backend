@@ -1,6 +1,7 @@
 package com.revature.mathtagon.user;
 
 import com.revature.mathtagon.auth.dtos.requests.LoginRequest;
+import com.revature.mathtagon.auth.dtos.responses.Principal;
 import com.revature.mathtagon.user.dtos.requests.NewUserRequest;
 import com.revature.mathtagon.util.annotations.Inject;
 import com.revature.mathtagon.util.customexceptions.AuthenticationException;
@@ -53,6 +54,10 @@ public class UserService {
 
     public List<User> getAllUsers(){
         return(List<User>) userRepository.findAll();
+    }
+
+    public User getUserHistory(Principal token){
+        return(User) userRepository.getUserHistory(token.getUsername());
     }
 
     private boolean isUserValid(String username){
