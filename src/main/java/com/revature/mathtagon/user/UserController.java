@@ -1,13 +1,15 @@
 package com.revature.mathtagon.user;
 
 
-import com.revature.mathtagon.auth.AuthController;
+import com.revature.mathtagon.auth.TokenService;
+import com.revature.mathtagon.auth.dtos.responses.Principal;
 import com.revature.mathtagon.user.dtos.requests.NewUserRequest;
 import com.revature.mathtagon.util.annotations.Inject;
 import com.revature.mathtagon.util.customexceptions.InvalidRequestException;
 import com.revature.mathtagon.util.customexceptions.ResourceConflictException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -26,19 +27,22 @@ public class UserController {
 
     @Inject
     private final UserService userService;
+    private final TokenService tokenService;
 
     @Inject
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, TokenService tokenService){
         this.userService = userService;
+        this.tokenService = tokenService;
     }
-/*
+
+    @CrossOrigin
     @GetMapping
-    public @ResponseBody
-    List<User> getAllUser(){
-        return userService.getAllUsers();
+    public @ResponseBody User getUserHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String request){
+        Principal principal = tokenService.getRequesterDetails(request);
+        return userService.getUserHistory(principal);
     }
-*/
+
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,6 +54,8 @@ public class UserController {
 
 
     }
+
+
 
 
 
