@@ -40,8 +40,11 @@ public class UserController {
     @GetMapping
     public @ResponseBody User getUserHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String request){
         Principal principal = tokenService.getRequesterDetails(request);
+        //if(principal.equals(null))  userService.getUserHistory(principal);
         return userService.getUserHistory(principal);
     }
+
+
 
 
     @ResponseStatus(HttpStatus.CREATED)
