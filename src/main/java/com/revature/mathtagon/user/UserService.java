@@ -57,6 +57,7 @@ public class UserService {
     }
 
     public User getUserHistory(Principal token){
+        if(token.equals(null)) return (User) userRepository.getAllHistory();
         return(User) userRepository.getUserHistory(token.getUsername());
     }
 
