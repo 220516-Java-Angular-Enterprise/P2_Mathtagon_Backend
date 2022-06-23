@@ -22,22 +22,22 @@ public class Problem {
     protected final String value;
 
     public Problem(Integer i) {
-        value = String.format("(%d)", i);
+        value = String.format("%d", i);
     }
     public Problem(Integer a, Bin_Operator o, Integer b) {
-        this.value = String.format("((%d)%s(%d))",
+        this.value = String.format("(%d%s%d)",
                 a, binOps[o.ordinal()], b);
     }
     public Problem(Problem a, Bin_Operator o, Problem b) {
-        this.value = String.format("((%s)%s(%s))",
+        this.value = String.format("(%s%s%s)",
                 a.value, binOps[o.ordinal()], b.value);
     }
     public Problem(Integer a, Bin_Operator o, Problem b) {
-        this.value = String.format("((%d)%s(%s))",
+        this.value = String.format("(%d%s%s)",
                 a, binOps[o.ordinal()], b.value);
     }
     public Problem(Problem a, Bin_Operator o, Integer b) {
-        this.value = String.format("((%s)%s(%d))",
+        this.value = String.format("(%s%s%d)",
                 a.value, binOps[o.ordinal()], b);
     }
 
