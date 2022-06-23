@@ -28,6 +28,15 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer gameID;
 
+    public Game(){
+        super();
+    }
+
+    public Game(Integer score, User user){
+        this.score = score;
+        this.user = user;
+
+    }
 
     public Game(User user, GameType gameType, Integer score, Integer id) {
         this.user = user;
