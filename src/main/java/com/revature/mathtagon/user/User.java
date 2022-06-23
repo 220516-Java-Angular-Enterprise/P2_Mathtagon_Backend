@@ -67,6 +67,11 @@ public class User {
         this.password = password;
     }
 
+    public User(String userID) {
+        this.userID = userID;
+    }
+
+
     public List<Game> getGames() {
         return games;
     }
