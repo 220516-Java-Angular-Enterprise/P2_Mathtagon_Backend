@@ -24,6 +24,10 @@ public class Problem {
     public Problem(Integer i) {
         value = String.format("(%d)", i);
     }
+    public Problem(Integer a, Bin_Operator o, Integer b) {
+        this.value = String.format("((%d)%s(%d))",
+                a, binOps[o.ordinal()], b);
+    }
     public Problem(Problem a, Bin_Operator o, Problem b) {
         this.value = String.format("((%s)%s(%s))",
                 a.value, binOps[o.ordinal()], b.value);
@@ -31,10 +35,6 @@ public class Problem {
     public Problem(Integer a, Bin_Operator o, Problem b) {
         this.value = String.format("((%d)%s(%s))",
                 a, binOps[o.ordinal()], b.value);
-    }
-    public Problem(Integer a, Bin_Operator o, Integer b) {
-        this.value = String.format("((%d)%s(%d))",
-                a, binOps[o.ordinal()], b);
     }
     public Problem(Problem a, Bin_Operator o, Integer b) {
         this.value = String.format("((%s)%s(%d))",

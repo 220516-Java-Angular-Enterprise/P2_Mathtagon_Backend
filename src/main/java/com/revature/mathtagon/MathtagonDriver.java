@@ -1,5 +1,7 @@
 package com.revature.mathtagon;
 
+import com.revature.mathtagon.problem.ProblemBuilder;
+import com.revature.mathtagon.problem.ProblemGenerator;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,7 +31,11 @@ public class MathtagonDriver {
     private static final Logger logger = Logger.getLogger(MathtagonDriver.class.getName());
 
     public static void main(String[] a) {
-        logger.info("[INFO] Beginning Mathtagon\n");
-        SpringApplication.run(MathtagonDriver.class, a);
+        //logger.info("[INFO] Beginning Mathtagon\n");
+        //SpringApplication.run(MathtagonDriver.class, a);
+        System.out.println(
+                new ProblemGenerator(2, 4)
+                        .generate()
+                        .getValue());
     }
 }
