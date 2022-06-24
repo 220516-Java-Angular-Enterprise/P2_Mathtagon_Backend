@@ -77,7 +77,7 @@ public class UserController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody Map<String, Object> handleBadRequestException(InvalidRequestException le){
-        logger.warning("\n==========\nException Thrwon\n========");
+        logger.warning("\n==========\nException Thrown\n========");
         logger.severe(ExceptionUtils.getStackTrace(le));
         Map<String, Object> responseBody = new LinkedHashMap<>();
 
