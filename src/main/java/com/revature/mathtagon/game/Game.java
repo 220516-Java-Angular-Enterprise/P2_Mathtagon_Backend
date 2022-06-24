@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Game {
 
 
-    private enum GameType{
+    public enum GameType{
         ALGEBRA
     }
     @ManyToOne
