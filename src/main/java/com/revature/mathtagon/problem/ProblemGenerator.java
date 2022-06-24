@@ -1,8 +1,5 @@
 package com.revature.mathtagon.problem;
 
-import java.lang.reflect.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ProblemGenerator {
@@ -34,7 +31,7 @@ public class ProblemGenerator {
 
     private Problem generateHelper() {
         if (operations-- > 0) {
-            switch(seeder.nextInt(4)) {
+            switch(seeder.nextInt(5)) {
                 case 0:
                     return new Problem(
                             new Problem(seeder.nextInt((int)Math.pow(10, numLength))),
@@ -55,6 +52,9 @@ public class ProblemGenerator {
                             generateHelper(),
                             Problem.Bin_Operator.values()[seeder.nextInt(4)],
                             generateHelper());
+                case 4:
+                    operations++;
+                    return new Problem(seeder.nextInt((int)Math.pow(10, numLength)));
             }
         }
         return new Problem(seeder.nextInt((int)Math.pow(10, numLength)));

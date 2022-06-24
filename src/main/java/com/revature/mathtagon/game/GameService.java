@@ -26,7 +26,7 @@ public class GameService {
 
     public User addPoints(NewScoreRequest request){
         User game = request.takeUser();
-        gameRepository.addPoints(request.getScore(), request.getUserID());
+        gameRepository.record(request.getScore(),request.getGametype().ordinal(), request.getUserID());
         return game;
     }
 }

@@ -20,12 +20,12 @@ public class Game {
     private User user;
 
     @Column
-    private GameType gameType;
+    public GameType gameType;
     @Column
     private Integer score;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer gameID;
 
     public Game(){
