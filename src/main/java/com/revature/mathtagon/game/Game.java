@@ -20,18 +20,27 @@ public class Game {
     private User user;
 
     @Column
-    private GameType gameType;
+    public GameType gametype;
     @Column
     private Integer score;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer gameID;
 
+    public Game(){
+        super();
+    }
+
+    public Game(Integer score, User user){
+        this.score = score;
+        this.user = user;
+
+    }
 
     public Game(User user, GameType gameType, Integer score, Integer id) {
         this.user = user;
-        this.gameType = gameType;
+        this.gametype = gameType;
         this.score = score;
         this.gameID = id;
     }
@@ -44,12 +53,12 @@ public class Game {
         this.user = user;
     }
 
-    public GameType getGameType() {
-        return gameType;
+    public GameType getGametype() {
+        return gametype;
     }
 
-    public void setGameType(GameType gameType) {
-        this.gameType = gameType;
+    public void setGametype(GameType gametype) {
+        this.gametype = gametype;
     }
 
     public Integer getScore() {
@@ -72,7 +81,7 @@ public class Game {
     public String toString() {
         return "Game{" +
                 "user=" + user +
-                ", gameType=" + gameType +
+                ", gameType=" + gametype +
                 ", score=" + score +
                 ", id=" + gameID +
                 '}';
