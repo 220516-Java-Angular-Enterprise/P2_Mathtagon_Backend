@@ -1,9 +1,9 @@
 package com.revature.mathtagon.game.dtos.requests;
 
+import com.revature.mathtagon.game.Game.GameType;
 import com.revature.mathtagon.user.User;
 
 public class NewScoreRequest {
-    public enum GameType{ALGEBRA}
     private String userID;
 
     private GameType gametype;

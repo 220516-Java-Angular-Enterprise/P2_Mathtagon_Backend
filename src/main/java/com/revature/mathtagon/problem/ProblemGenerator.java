@@ -8,6 +8,10 @@ public class ProblemGenerator {
     private int operations;
     private final Random seeder;
 
+    /**
+     * @param numLength     {@code int}: Maximum digits in any atom of the {@code Problem}
+     * @param maxOps        {@code int}: Maximum operations allowed in generated {@code Problem}
+     */
     public ProblemGenerator(int numLength, int maxOps) {
         this.numLength = numLength;
         this.maxOps = maxOps;
@@ -53,7 +57,6 @@ public class ProblemGenerator {
                             Problem.Bin_Operator.values()[seeder.nextInt(4)],
                             generateHelper());
                 case 4:
-                    operations++;
                     return new Problem(seeder.nextInt((int)Math.pow(10, numLength)));
             }
         }
