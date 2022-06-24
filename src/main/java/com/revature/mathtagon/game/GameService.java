@@ -1,5 +1,7 @@
 package com.revature.mathtagon.game;
 
+import com.revature.mathtagon.auth.dtos.responses.Principal;
+import com.revature.mathtagon.game.dtos.requests.NewGameRequest;
 import com.revature.mathtagon.game.dtos.requests.NewScoreRequest;
 import com.revature.mathtagon.user.User;
 import com.revature.mathtagon.util.annotations.Inject;
@@ -28,5 +30,11 @@ public class GameService {
         User game = request.takeUser();
         gameRepository.record(request.getScore(),request.getGametype().ordinal(), request.getUserID());
         return game;
+    }
+
+    public NewGameRequest makeNewGame( NewGameRequest request,Principal token){
+
+        gameRepository.createGame(request.getGametype().ordinal(),token.getId());
+        return request;
     }
 }

@@ -20,11 +20,11 @@ public interface UserRepository extends CrudRepository<User, String> {
     @Query(value = "SELECT username FROM users", nativeQuery = true)
     List<String> getAllUsernames();
 
-    //Gets a specified users history purpose is for games
+    //Gets a specified user's history purpose is for games
     @Query(value = "SELECT * FROM users WHERE username = ?", nativeQuery = true)
     User getUserHistory(String username);
 
-    //For guest to select userhistory
+    //For guest to select user history
     @Query(value = "SELECT * FROM users", nativeQuery = true)
     User getAllHistory();
     //For users to log in

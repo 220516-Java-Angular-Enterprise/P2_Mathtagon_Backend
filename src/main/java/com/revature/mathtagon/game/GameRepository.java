@@ -10,4 +10,10 @@ public interface GameRepository extends CrudRepository<Game, String> {
     @Modifying
     @Query(value = "INSERT INTO games (score,gametype,userID) VALUES (?1,?2,?3)",nativeQuery = true)
     void record(Integer score, Integer gameType, String userID);
+
+    @Modifying
+    @Query(value = "INSERT INTO games (gametype,userID) VALUES (?1,?2)", nativeQuery = true)
+    void createGame(Integer gameType,String userID);
+
+
 }
