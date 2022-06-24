@@ -3,14 +3,16 @@ package com.revature.mathtagon.game.dtos.requests;
 import com.revature.mathtagon.user.User;
 
 public class NewScoreRequest {
+    public enum GameType{ALGEBRA}
     private String userID;
-    private String password;
+
+    private GameType gametype;
 
     private int score;
 
-    public NewScoreRequest(String username, String password, int score) {
-        this.userID = username;
-        this.password = password;
+    public NewScoreRequest(String userID, GameType gameType, int score) {
+        this.userID = userID;
+        this.gametype = gameType;
         this.score = score;
     }
 
@@ -34,11 +36,19 @@ public class NewScoreRequest {
         return new User(userID);
     }
 
+    public GameType getGametype() {
+        return gametype;
+    }
+
+    public void setGametype(GameType gametype) {
+        this.gametype = gametype;
+    }
 
     @Override
     public String toString() {
         return "NewScoreRequest{" +
                 "userID='" + userID + '\'' +
+                ", gameType=" + gametype +
                 ", score=" + score +
                 '}';
     }
