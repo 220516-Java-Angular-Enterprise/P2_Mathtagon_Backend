@@ -7,9 +7,9 @@ public class NewProblemRequest {
     private int maxDigits;
     private int problems;
 
-    public NewProblemRequest(int maxOperations, int maxDigits, int problems) {
+    public NewProblemRequest(int maxOperations,int problems) {
         this.maxOperations = maxOperations;
-        this.maxDigits = maxDigits;
+        this.maxDigits = 1;
         this.problems = problems;
     }
 
