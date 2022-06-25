@@ -2,6 +2,32 @@ package com.revature.mathtagon.problem;
 
 import java.util.Random;
 
+/**
+ * Do a {@code POST} request to the endpoint {@code http://<host_ip>:8080/mathtagon/problems}
+ * <br>Responses will be in the form of a list value. This value is to given as
+ * the value for the {@code "expr"} key in a MathJS {@code POST} request.
+ * <br><br>
+ * Example:
+ * <pre>
+ *     Request Body:
+ *     {
+ *         "maxOperations":<int>3</int>
+ *         "problems":<int>5</int>
+ *     }
+ *
+ *     Response Body:
+ *     [
+ *         "(3+(7*(6*9)))",
+ *         "(2*(4+9))",
+ *         "((7-2)-(0-4))",
+ *         "((7-6)/0)",
+ *         "((9-7)/(8+0))"
+ *      ]
+ * </pre>
+ *
+ * @see com.revature.mathtagon.problem.Problem
+ * @see com.revature.mathtagon.problem.ProblemBuilder
+ */
 public class ProblemGenerator {
     private final int numLength;
     private int maxOps;
@@ -18,7 +44,7 @@ public class ProblemGenerator {
         this.seeder = new Random();
     }
 
-    public Problem generate() {
+    Problem generate() {
         operations = maxOps;
         ProblemBuilder pb = new ProblemBuilder(generateHelper());
         while(operations-- > 0) {
