@@ -32,11 +32,13 @@ public class Game {
         super();
     }
 
-    public Game(Integer score, User user){
-        this.score = score;
+    public Game(GameType gameType, User user){
+        this.gametype = gameType;
         this.user = user;
 
     }
+
+
 
     public Game(User user, GameType gameType, Integer score, Integer id) {
         this.user = user;
