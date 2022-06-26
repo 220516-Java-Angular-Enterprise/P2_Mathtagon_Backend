@@ -1,6 +1,7 @@
 package com.revature.mathtagon.game;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.revature.mathtagon.game.dtos.requests.NewGameRequest;
 import com.revature.mathtagon.user.User;
 
 
@@ -20,7 +21,7 @@ public class Game {
     private User user;
 
     @Column
-    public GameType gametype;
+    private GameType gametype;
     @Column
     private Integer score;
 
@@ -32,11 +33,21 @@ public class Game {
         super();
     }
 
-    public Game(Integer score, User user){
-        this.score = score;
+    //Create Constructor
+    public Game(User user, NewGameRequest req) {
         this.user = user;
-
+        this.gametype = GameType.values()[req.getGametype()];
     }
+
+    //Save Constructor
+    public Game(User user, int gametype, Integer score) {
+        this.user = user;
+        this.gametype = GameType.values()[gametype];
+        this.score = score;
+    }
+
+
+    //Read Constructor
 
     public Game(User user, GameType gameType, Integer score, Integer id) {
         this.user = user;

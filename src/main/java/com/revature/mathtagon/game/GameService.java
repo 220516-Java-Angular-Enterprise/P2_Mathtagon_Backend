@@ -1,6 +1,10 @@
 package com.revature.mathtagon.game;
 
-import com.revature.mathtagon.game.dtos.requests.NewScoreRequest;
+
+import com.revature.mathtagon.auth.dtos.responses.Principal;
+import com.revature.mathtagon.game.dtos.requests.NewSaveRequest;
+
+import com.revature.mathtagon.game.dtos.responses.GameConfirmation;
 import com.revature.mathtagon.user.User;
 import com.revature.mathtagon.util.annotations.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +28,10 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public User addPoints(NewScoreRequest request){
-        User game = request.takeUser();
-        gameRepository.record(request.getScore(),request.getGametype().ordinal(), request.getUserID());
-        return game;
+    public Game saveGame(User u, NewSaveRequest request){
+        Game g = new Game(u, request.getGametype(), request.getScore());
+        logger.info("Recording game:\n"+g);
+        gameRepository.record(g.getGametype().ordinal(), g.getScore(), g.getUser().getUserID());
+        return g;
     }
 }

@@ -52,12 +52,20 @@ public class UserService {
         return  user;
     }
 
+    public User getByID(String id) {
+        return userRepository.getByID(id);
+    }
+
+    public User getByUsername(String uName) {
+        return userRepository.getByUsername(uName);
+    }
+
     public List<User> getAllUsers(){
         return(List<User>) userRepository.findAll();
     }
 
     public User getUserHistory(Principal token){
-        if(token.equals(null)) return (User) userRepository.getAllHistory();
+        if(token.equals("")) return (User) userRepository.getAllHistory();
         return(User) userRepository.getUserHistory(token.getUsername());
     }
 
