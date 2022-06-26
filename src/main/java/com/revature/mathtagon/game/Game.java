@@ -1,7 +1,6 @@
 package com.revature.mathtagon.game;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.revature.mathtagon.game.dtos.requests.NewGameRequest;
 import com.revature.mathtagon.user.User;
 
 
@@ -34,9 +33,9 @@ public class Game {
     }
 
     //Create Constructor
-    public Game(User user, NewGameRequest req) {
+    public Game(User user, int gameTypeID) {
         this.user = user;
-        this.gametype = GameType.values()[req.getGametype()];
+        this.gametype = GameType.values()[gameTypeID];
     }
 
     //Save Constructor
@@ -91,7 +90,7 @@ public class Game {
     @Override
     public String toString() {
         return "Game{" +
-                "user=" + user +
+                "user=" + user.getUserID() +
                 ", gameType=" + gametype +
                 ", score=" + score +
                 ", id=" + gameID +

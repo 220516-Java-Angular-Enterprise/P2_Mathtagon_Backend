@@ -30,7 +30,7 @@ public class GameService {
 
     public Game saveGame(User u, NewSaveRequest request){
         Game g = new Game(u, request.getGametype(), request.getScore());
-        logger.info("Recording game:\n"+g);
+        logger.info("Recording game:\n"+g+"\nWith request:\n"+request);
         gameRepository.record(g.getGametype().ordinal(), g.getScore(), g.getUser().getUserID());
         return g;
     }

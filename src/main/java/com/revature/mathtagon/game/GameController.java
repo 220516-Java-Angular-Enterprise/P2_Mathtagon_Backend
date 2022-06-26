@@ -54,10 +54,10 @@ public class GameController {
             @RequestHeader(HttpHeaders.AUTHORIZATION) String token)
     {
         Principal principal = tokenService.getRequesterDetails(token);
-        logger.info("Making a new game. Pricipal acquired:\n"+principal);
+        logger.info("Making a new game. Principal acquired:\n"+principal);
         User user = userService.getByUsername(principal.getUsername());
 
-        return new GameConfirmation(new Game(user, request));
+        return new GameConfirmation(new Game(user, request.getGametype()));
 
     }
 

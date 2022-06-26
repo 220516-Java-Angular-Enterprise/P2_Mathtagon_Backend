@@ -27,6 +27,7 @@ public class UserController {
 
     @Inject
     private final UserService userService;
+    @Inject
     private final TokenService tokenService;
 
     @Inject
