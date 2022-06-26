@@ -3,7 +3,8 @@ package com.revature.mathtagon.game;
 import com.revature.mathtagon.auth.TokenService;
 import com.revature.mathtagon.auth.dtos.responses.Principal;
 import com.revature.mathtagon.game.dtos.requests.NewGameRequest;
-import com.revature.mathtagon.game.dtos.requests.NewScoreRequest;
+import com.revature.mathtagon.game.dtos.requests.NewSaveRequest;
+import com.revature.mathtagon.game.dtos.responses.GameConfirmation;
 import com.revature.mathtagon.user.User;
 import com.revature.mathtagon.user.UserService;
 import com.revature.mathtagon.util.annotations.Inject;
@@ -43,29 +44,27 @@ public class GameController {
     }
 
     //Makes a New Game
-    @ResponseStatus(HttpStatus.CREATED)
-    @CrossOrigin
-    @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE, params = {"newGame"})
-    public @ResponseBody
-    Game makeGame(@RequestBody NewGameRequest request, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) throws ResourceConflictException{
-        logger.info("Making a new game");
-        Game game = new Game();
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE, params = {"new_game"})
+    public @ResponseBody GameConfirmation makeGame(
+            @RequestBody NewGameRequest request,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String token)
+    {
         Principal principal = tokenService.getRequesterDetails(token);
-        userService.getUserHistory(principal);
-        gameService.makeNewGame(request,principal);
+        logger.info("Making a new game. Pricipal acquired:\n"+principal);
+        User user = userService.getByUsername(principal.getUsername());
 
-
-        return game;
+        return new GameConfirmation(new Game(user, request));
     }
 
     //Post a users stats with their userID
     @ResponseStatus(HttpStatus.CREATED)
-    @CrossOrigin
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String postPoints(@RequestBody NewScoreRequest request) throws ResourceConflictException{
-        logger.info("Posting stats");
+    public @ResponseBody Game postPoints(@RequestBody NewSaveRequest request) throws ResourceConflictException{
+        User u = userService.getByID(request.getUserID());
+        logger.info("Posting stats for user\n"+u);
 
-        return gameService.addPoints(request).getUserID();
+        return gameService.saveGame(u, request);
     }
 
     @ExceptionHandler
