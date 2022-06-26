@@ -1,5 +1,6 @@
 package com.revature.mathtagon.game.dtos.requests;
 
+
 public class NewGameRequest {
     private int gametype;
 
@@ -16,6 +17,7 @@ public class NewGameRequest {
     public void setGametype(int gametype) {
         this.gametype = gametype;
     }
+
 
     @Override
     public String toString() {

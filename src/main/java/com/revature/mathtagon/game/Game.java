@@ -46,7 +46,9 @@ public class Game {
         this.score = score;
     }
 
+
     //Read Constructor
+
     public Game(User user, GameType gameType, Integer score, Integer id) {
         this.user = user;
         this.gametype = gameType;

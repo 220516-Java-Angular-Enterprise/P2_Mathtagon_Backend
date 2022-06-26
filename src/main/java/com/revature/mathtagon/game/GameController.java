@@ -3,8 +3,10 @@ package com.revature.mathtagon.game;
 import com.revature.mathtagon.auth.TokenService;
 import com.revature.mathtagon.auth.dtos.responses.Principal;
 import com.revature.mathtagon.game.dtos.requests.NewGameRequest;
+
 import com.revature.mathtagon.game.dtos.requests.NewSaveRequest;
 import com.revature.mathtagon.game.dtos.responses.GameConfirmation;
+
 import com.revature.mathtagon.user.User;
 import com.revature.mathtagon.user.UserService;
 import com.revature.mathtagon.util.annotations.Inject;
@@ -44,8 +46,9 @@ public class GameController {
     }
 
     //Makes a New Game
+
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE, params = {"new_game"})
+    @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE, params = {"new-game"})
     public @ResponseBody GameConfirmation makeGame(
             @RequestBody NewGameRequest request,
             @RequestHeader(HttpHeaders.AUTHORIZATION) String token)
@@ -55,6 +58,7 @@ public class GameController {
         User user = userService.getByUsername(principal.getUsername());
 
         return new GameConfirmation(new Game(user, request));
+
     }
 
     //Post a users stats with their userID
