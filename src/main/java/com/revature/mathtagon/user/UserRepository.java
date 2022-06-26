@@ -30,4 +30,10 @@ public interface UserRepository extends CrudRepository<User, String> {
     //For users to log in
     @Query(value = "SELECT * FROM users WHERE username = ?1 AND password = ?2", nativeQuery = true)
     User getUserAndPassword(String username, String password);
+
+    @Query(value = "SELECT * FROM users WHERE username = ?", nativeQuery = true)
+    User getByUsername(String username);
+
+    @Query(value = "SELECT * FROM users WHERE userid = ?", nativeQuery = true)
+    User getByID(String id);
 }

@@ -1,24 +1,20 @@
 package com.revature.mathtagon.game.dtos.requests;
 
-import com.revature.mathtagon.game.Game;
 
 public class NewGameRequest {
-    public enum GameType{
-        ALGEBRA
-    }
-    private GameType gametype;
+    private int gametype;
 
     NewGameRequest(){super();}
 
-    NewGameRequest(GameType gametype){
+    NewGameRequest(int gametype){
         this.gametype = gametype;
     }
 
-    public GameType getGametype() {
+    public int getGametype() {
         return gametype;
     }
 
-    public void setGametype(GameType gametype) {
+    public void setGametype(int gametype) {
         this.gametype = gametype;
     }
 
