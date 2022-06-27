@@ -4,14 +4,13 @@ import com.revature.mathtagon.game.Game;
 
 public class GameConfirmation {
     private String userID;
-    private String gameType;
+    private String gametype;
 
-    public GameConfirmation() {
-    }
+    public GameConfirmation() {}
 
     public GameConfirmation(Game game) {
         this.userID = game.getUser().getUserID();
-        this.gameType = game.getGametype().name();
+        this.gametype = game.getGametype().name();
     }
 
     public String getUserID() {
@@ -22,19 +21,19 @@ public class GameConfirmation {
         this.userID = userID;
     }
 
-    public String getGameType() {
-        return gameType;
+    public String getGametype() {
+        return gametype;
     }
 
-    public void setGameType(String gameType) {
-        this.gameType = gameType;
+    public void setGametype(String gametype) {
+        this.gametype = gametype;
     }
 
     @Override
     public String toString() {
         return "GameConfirmation{" +
                 "userID='" + userID + '\'' +
-                ", gameType=" + gameType +
+                ", gametype=" + gametype +
                 '}';
     }
 }

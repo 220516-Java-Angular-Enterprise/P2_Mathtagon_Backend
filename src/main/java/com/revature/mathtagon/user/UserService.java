@@ -39,7 +39,7 @@ public class UserService {
     public User registerUser(NewUserRequest request){
         User user = request.takeUser();
 
-        if(isNotDuplicateUsername(user.getUsername())){
+        if(!isDuplicateUsername(user.getUsername()) || !isDuplicateEmail(user.getEmail())){
             if (isUserValid(user.getUsername())){
                 if(isPassValid(user.getPassword())){
                     user.setUserID(UUID.randomUUID().toString());
@@ -48,7 +48,7 @@ public class UserService {
                 } else throw new InvalidRequestException(" Invalid password. password must have at least 8 characters");
             }else throw new InvalidRequestException("Invalid username. username must have at least 8 - 20 characters");
 
-        }else throw new ResourceConflictException("Username is already in use");
+        }else throw new ResourceConflictException("Username/Email is already in use");
         return  user;
     }
 
@@ -77,8 +77,11 @@ public class UserService {
         return password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
     }
 
-    private boolean isNotDuplicateUsername(String username){
-        return !userRepository.getAllUsernames().contains(username);
+    private boolean isDuplicateUsername(String username){
+        return userRepository.getAllUsernames().contains(username);
     }
 
+    private boolean isDuplicateEmail(String email) {
+        return userRepository.getAllEmails().contains(email);
+    }
 }

@@ -3,9 +3,9 @@ package com.revature.mathtagon.problem.dtos;
 import com.revature.mathtagon.problem.ProblemGenerator;
 
 public class NewProblemRequest {
-    private int maxOperations;
-    private int maxDigits;
-    private int problems;
+    private Integer maxOperations;
+    private Integer maxDigits;
+    private Integer problems;
 
     public NewProblemRequest(int maxOperations,int problems) {
         this.maxOperations = maxOperations;

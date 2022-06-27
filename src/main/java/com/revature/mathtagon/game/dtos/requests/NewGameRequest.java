@@ -2,7 +2,7 @@ package com.revature.mathtagon.game.dtos.requests;
 
 
 public class NewGameRequest {
-    private int gametype;
+    private Integer gametype;
 
     NewGameRequest(){super();}
 

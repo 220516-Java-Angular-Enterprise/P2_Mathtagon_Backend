@@ -13,12 +13,14 @@ public interface UserRepository extends CrudRepository<User, String> {
     public static final Logger logger = Logger.getLogger(UserRepository.class.getName());
 
     @Modifying
-    @Query(value = "INSERT INTO users (userID, username, password, email, fullname, age) VALUES (?1, ?2, ?3, ?4, ?5, ?6)", nativeQuery = true )
+    @Query(value = "INSERT INTO users (userID, username, password, email, fullname, age) VALUES (?1, ?2, crypt(?3, gen_salt('bf')), ?4, ?5, ?6)", nativeQuery = true )
     void saveUser(String userID, String username, String password, String email, String fullname, Integer age);
 
     //To search for all users
     @Query(value = "SELECT username FROM users", nativeQuery = true)
     List<String> getAllUsernames();
+    @Query(value = "SELECT email FROM users", nativeQuery = true)
+    List<String> getAllEmails();
 
     //Gets a specified user's history purpose is for games
     @Query(value = "SELECT * FROM users WHERE username = ?", nativeQuery = true)
@@ -28,7 +30,7 @@ public interface UserRepository extends CrudRepository<User, String> {
     @Query(value = "SELECT * FROM users", nativeQuery = true)
     User getAllHistory();
     //For users to log in
-    @Query(value = "SELECT * FROM users WHERE username = ?1 AND password = ?2", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE username = ?1 AND password = crypt(?2, password)", nativeQuery = true)
     User getUserAndPassword(String username, String password);
 
     @Query(value = "SELECT * FROM users WHERE username = ?", nativeQuery = true)
