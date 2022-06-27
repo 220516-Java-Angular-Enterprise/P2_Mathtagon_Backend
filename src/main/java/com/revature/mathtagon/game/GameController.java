@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -45,6 +46,14 @@ public class GameController {
         this.userService = userService;
     }
 
+    //Get top 5 on leaderboards
+    @CrossOrigin
+    @GetMapping
+    public @ResponseBody
+    List<Object[]> getTopFive(@RequestHeader(HttpHeaders.AUTHORIZATION) String request){
+        Principal principal = tokenService.getRequesterDetails(request);
+        return gameService.getTopFive(principal);
+    }
     //Makes a New Game
 
     @ResponseStatus(HttpStatus.OK)
@@ -54,10 +63,10 @@ public class GameController {
             @RequestHeader(HttpHeaders.AUTHORIZATION) String token)
     {
         Principal principal = tokenService.getRequesterDetails(token);
-        logger.info("Making a new game. Pricipal acquired:\n"+principal);
+        logger.info("Making a new game. Principal acquired:\n"+principal);
         User user = userService.getByUsername(principal.getUsername());
 
-        return new GameConfirmation(new Game(user, request));
+        return new GameConfirmation(new Game(user, request.getGametype()));
 
     }
 

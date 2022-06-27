@@ -13,7 +13,7 @@ public class NewUserRequest {
     private String password;
     private String fullname;
     private String email;
-    private int age;
+    private Integer age;
 
 
     public NewUserRequest(){super();}

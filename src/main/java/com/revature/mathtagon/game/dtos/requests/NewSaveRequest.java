@@ -3,9 +3,9 @@ package com.revature.mathtagon.game.dtos.requests;
 public class NewSaveRequest {
     private String userID;
 
-    private int gametype;
+    private Integer gametype;
 
-    private int score;
+    private Integer score;
 
     public NewSaveRequest(String userID, int gametype, int score) {
         this.userID = userID;

@@ -2,6 +2,7 @@ package com.revature.mathtagon.game;
 
 
 import com.revature.mathtagon.auth.dtos.responses.Principal;
+
 import com.revature.mathtagon.game.dtos.requests.NewSaveRequest;
 
 import com.revature.mathtagon.game.dtos.responses.GameConfirmation;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -30,8 +32,15 @@ public class GameService {
 
     public Game saveGame(User u, NewSaveRequest request){
         Game g = new Game(u, request.getGametype(), request.getScore());
-        logger.info("Recording game:\n"+g);
+        logger.info("Recording game:\n"+g+"\nWith request:\n"+request);
         gameRepository.record(g.getGametype().ordinal(), g.getScore(), g.getUser().getUserID());
         return g;
     }
+
+    public List<Object[]> getTopFive(Principal token){
+         List<Object[]> gameList = gameRepository.topFive();
+         return gameList;
+    }
+
+
 }
