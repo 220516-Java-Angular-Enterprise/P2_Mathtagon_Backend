@@ -7,8 +7,6 @@ import java.util.logging.Logger;
 public class NewUserRequest {
     private static final Logger logger = Logger.getLogger(NewUserRequest.class.getName());
 
-
-
     private String username;
     private String password;
     private String fullname;
