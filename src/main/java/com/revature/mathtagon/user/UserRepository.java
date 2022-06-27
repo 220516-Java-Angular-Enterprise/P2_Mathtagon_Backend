@@ -19,6 +19,8 @@ public interface UserRepository extends CrudRepository<User, String> {
     //To search for all users
     @Query(value = "SELECT username FROM users", nativeQuery = true)
     List<String> getAllUsernames();
+    @Query(value = "SELECT email FROM users", nativeQuery = true)
+    List<String> getAllEmails();
 
     //Gets a specified user's history purpose is for games
     @Query(value = "SELECT * FROM users WHERE username = ?", nativeQuery = true)
