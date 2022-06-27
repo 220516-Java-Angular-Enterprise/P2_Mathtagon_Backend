@@ -39,7 +39,7 @@ public class UserService {
     public User registerUser(NewUserRequest request){
         User user = request.takeUser();
 
-        if(isDuplicateUsername(user.getUsername()) || isDuplicateEmail(user.getEmail())){
+        if(!isDuplicateUsername(user.getUsername()) || !isDuplicateEmail(user.getEmail())){
             if (isUserValid(user.getUsername())){
                 if(isPassValid(user.getPassword())){
                     user.setUserID(UUID.randomUUID().toString());
