@@ -50,9 +50,8 @@ public class GameController {
     @CrossOrigin
     @GetMapping
     public @ResponseBody
-    List<Object[]> getTopFive(@RequestHeader(HttpHeaders.AUTHORIZATION) String request){
-        Principal principal = tokenService.getRequesterDetails(request);
-        return gameService.getTopFive(principal);
+    List<Object[]> getTopFive(){
+        return gameService.getTopFive();
     }
     //Makes a New Game
 

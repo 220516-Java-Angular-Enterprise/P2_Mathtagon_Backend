@@ -37,7 +37,7 @@ public class GameService {
         return g;
     }
 
-    public List<Object[]> getTopFive(Principal token){
+    public List<Object[]> getTopFive(){
          List<Object[]> gameList = gameRepository.topFive();
          return gameList;
     }
