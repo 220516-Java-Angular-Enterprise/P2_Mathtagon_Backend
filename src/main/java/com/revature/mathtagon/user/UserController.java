@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping
     public @ResponseBody User getUserHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String request){
         Principal principal = tokenService.getRequesterDetails(request);
-        //if(principal.equals(null))  userService.getUserHistory(principal);
+        //if(principal.equals(""))  userService.getUserHistory(principal);
         return userService.getUserHistory(principal);
     }
 
@@ -54,13 +54,7 @@ public class UserController {
 
         return userService.registerUser(request).getUserID();
 
-
-
     }
-
-
-
-
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
