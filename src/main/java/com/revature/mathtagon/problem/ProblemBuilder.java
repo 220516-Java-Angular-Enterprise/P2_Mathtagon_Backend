@@ -2,30 +2,37 @@ package com.revature.mathtagon.problem;
 
 import com.revature.mathtagon.problem.Problem.*;
 
-public class ProblemBuilder {
+/**
+ * A wrapper of {@code java.lang.StringBuilder} for the purpose of easily
+ * generating a {@code Problem} with the {@code ProblemGenerator} class.
+ *
+ * @see com.revature.mathtagon.problem.Problem
+ * @see com.revature.mathtagon.problem.ProblemGenerator
+ */
+class ProblemBuilder {
     private final StringBuilder builder;
 
-    public ProblemBuilder(Integer i) {
+    ProblemBuilder(Integer i) {
         this(new Problem(i));
     }
 
-    public ProblemBuilder(Problem p) {
-        builder = new StringBuilder(p.getValue());
+    ProblemBuilder(Problem p) {
+        builder = new StringBuilder(p.toString());
     }
 
-    public StringBuilder getBuilder() {
+    StringBuilder getBuilder() {
         return builder;
     }
 
-    public ProblemBuilder postOp(Bin_Operator op, Problem p) {
+    ProblemBuilder postOp(Bin_Operator op, Problem p) {
 
         this.builder.insert(0, "(")
-                .append(String.format("%s%s)", p.binOps[op.ordinal()], p.getValue()));
+                .append(String.format("%s%s)", p.binOps[op.ordinal()], p));
         return this;
     }
 
-    public ProblemBuilder preOp(Problem p, Bin_Operator op) {
-        this.builder.insert(0, String.format("(%s%s", p.getValue(), p.binOps[op.ordinal()]))
+    ProblemBuilder preOp(Problem p, Bin_Operator op) {
+        this.builder.insert(0, String.format("(%s%s", p, p.binOps[op.ordinal()]))
                 .append(")");
         return this;
     }
