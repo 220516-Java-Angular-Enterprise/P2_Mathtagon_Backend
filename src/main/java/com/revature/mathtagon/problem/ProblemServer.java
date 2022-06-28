@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+@CrossOrigin("http://localhost:4200/")
 @RestController
 @RequestMapping("/problems")
 public class ProblemServer {
