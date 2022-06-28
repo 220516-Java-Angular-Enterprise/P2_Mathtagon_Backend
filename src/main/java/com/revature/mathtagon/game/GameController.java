@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@CrossOrigin("http://localhost:4200/")
 @RestController
 @RequestMapping("/games")
 public class GameController {
@@ -47,7 +48,6 @@ public class GameController {
     }
 
     //Get top 5 on leaderboards
-    @CrossOrigin
     @GetMapping
     public @ResponseBody
     List<Object[]> getTopFive(){

@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@CrossOrigin("http://localhost:4200/")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -37,7 +38,6 @@ public class UserController {
         this.tokenService = tokenService;
     }
 
-    @CrossOrigin
     @GetMapping
     public @ResponseBody User getUserHistory(@RequestHeader(HttpHeaders.AUTHORIZATION) String request){
         Principal principal = tokenService.getRequesterDetails(request);
