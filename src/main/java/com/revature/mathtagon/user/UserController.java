@@ -53,7 +53,7 @@ public class UserController {
     public @ResponseBody String register(@RequestBody NewUserRequest request) throws ResourceConflictException{
         logger.info("Creating user ");
 
-        return userService.registerUser(request).getUserID();
+        return '"'+userService.registerUser(request).getUserID()+'"';
 
     }
 
