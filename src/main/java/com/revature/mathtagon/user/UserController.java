@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin({"http://localhost:4200/", "http://mathtagon-frontend-2.s3-website-us-east-1.amazonaws.com"})
 @RestController
 @RequestMapping("/users")
 public class UserController {
